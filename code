@@ -1,0 +1,76 @@
+import random
+import math
+def compute_gcd(x, y):
+    """ Utility function to compute the greatest common divisor. """
+    while y:
+        x, y = y, x % y
+    return x
+def rsa_encryption(public_key, plain_text):
+    """ Function to encrypt a message with RSA. """
+    n, e = public_key
+    return pow(plain_text, e, n)
+def prime_gen(bits):
+    """ Function to generate a prime number with the specified bit length.
+"""
+length and is odd
+        if prime_check(p):
+            return p
+def prime_check(num, iterations=10):
+    """ Implementing the Miller-Rabin test for checking primality. """
+    if num in (2, 3):
+        return True
+    if num < 2 or num % 2 == 0:
+return False r=0
+if bits < 2:
+    raise ValueError("Bit length must be at least 2.")
+while True:
+p = random.getrandbits(bits)
+p|=(1<<(bits-1))|1 #Ensurethenumberisof'bits'
+7
+     m = num - 1
+    while m % 2 == 0:
+m >>= 1 r += 1
+    for _ in range(iterations):
+        base = random.randrange(2, num - 1)
+        val = pow(base, m, num)
+        if val in (1, num - 1):
+            continue
+        for _ in range(r - 1):
+            val = pow(val, 2, num)
+            if val == num - 1:
+break else:
+            return False
+    return True
+def rsa_decryption(private_key, cipher_text):
+    """ Function to decrypt a message with RSA. """
+    n, d = private_key
+    return pow(cipher_text, d, n)
+def generate_rsa_keys(bit_size):
+    """ RSA key pair generation. """
+    p = prime_gen(bit_size // 2)
+    q = prime_gen(bit_size // 2)
+    print("The value of p:", p)
+    print("The value of q:", q)
+n=p*q
+totient = (p - 1) * (q - 1)
+    e = random.randint(3, 40)
+    while compute_gcd(e, totient) != 1:
+        e = random.randint(3, 40)
+    d = pow(e, -1, totient)
+    return ((n, e), (n, d))
+ 8
+
+# Request bit size from the user
+key_length = int(input("Enter the bit length for the prime numbers: "))
+# Key generation
+public, private = generate_rsa_keys(key_length)
+print("RSA Public Key:", public)
+print("RSA Private Key:", private)
+# Request a message to encrypt
+message = int(input("Provide an integer message to encrypt: "))
+# Encryption process
+encoded_message = rsa_encryption(public, message)
+print("Encoded Message:", encoded_message)
+# Decryption process
+decoded_message = rsa_decryption(private, encoded_message)
+print("Decoded Message:", decoded_message)
